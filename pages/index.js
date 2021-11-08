@@ -60,11 +60,15 @@ export default function Home({ properties }) {
 
   const deleteHandler = async (e) => {
     const id = e.target.parentNode.id;
+    const filename = e.target.parentNode.dataset.filename;
     const res = await axios.delete('/api/delete', {
-       data: { id: id } 
+      data: {
+        id: id,
+        filename: filename
+      } 
     });
     if(res.status === 200) {
-      //refresh the uploaded list
+      //refresh the list
       const res3 = await axios.get('/api/getList');
       setStoredFiles(res3.data);
     }
@@ -99,7 +103,7 @@ export default function Home({ properties }) {
           <ul>
             {storedFiles.map((file) => {
               return (
-                <li key={file._id} id={file._id}>
+                <li key={file._id} id={file._id} data-filename={file.filename}>
                   <Link href={`/details/${file._id}`}>
                     <a>title: {file.title}</a>
                   </Link>
