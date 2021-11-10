@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         const response = await db.collection("userPost").insertOne({
           filename: filename,
           title: title,
-          addedAt: moment().subtract(10, 'days').calendar()
+          addedAt: moment().format('MMMM Do YYYY, h:mm:ss a')
         });
         return res.json(response);
       }
