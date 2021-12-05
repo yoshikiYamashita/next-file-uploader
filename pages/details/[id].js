@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
 export async function getStaticProps(context) {
   const id = context.params.id;
   const { db } = await connectToDatabase();
-  const data = await db.collection("userPost").findOne({"_id": ObjectId(id)});
+  const data = await db.collection("userPost").findOne({ "_id": ObjectId(id) });
   const userPost = JSON.parse(JSON.stringify(data));
   return {
     props: {
@@ -40,7 +40,7 @@ export default function Details({ userPost }) {
   return (
     <>
       <Link href="/"><a>Back to Home</a></Link>
-      <h1>/details/{userPost._id}</h1>
+      <h1>path: /details/{userPost._id}</h1>
       <h1>title: {userPost.title}</h1>
       <h1>filename: {userPost.filename}</h1>
       <h1>added at {userPost.addedAt}</h1>
@@ -52,5 +52,4 @@ export default function Details({ userPost }) {
       />
     </>
   )
-
 }

@@ -3,10 +3,10 @@ import moment from 'moment';
 
 
 export default async function handler(req, res) {
-  if(req.method === 'POST'){
+  if (req.method === 'POST') {
     try {
       const { filename, title } = req.body;
-      if( filename && title ) {
+      if (filename && title) {
         const { db } = await connectToDatabase();
         const response = await db.collection("userPost").insertOne({
           filename: filename,
@@ -16,14 +16,14 @@ export default async function handler(req, res) {
         return res.json(response);
       }
       else {
-        return res.json({ err: "Pass the props." });
+        return res.json({ err: "At least one of the properties required is undefined." });
       }
-    } 
-    catch(err) {
+    }
+    catch (err) {
       return res.status(500).json(err);
     }
   }
-  else if(req.method !== 'POST') {
-    return res.status(405).json({message: "your method is not allowed"})
+  else if (req.method !== 'POST') {
+    return res.status(405).json({ message: "your method is not allowed." })
   }
 }

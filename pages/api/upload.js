@@ -19,7 +19,7 @@ const upload =  multer({
 
 
 export default async function handler(req, res) {
-  if(req.method === 'POST') {
+  if (req.method === 'POST') {
     try {
       upload(req, res, function (err) {
         if (err) {
@@ -31,10 +31,10 @@ export default async function handler(req, res) {
         return res.json({ filename: file.filename });
       });
     }
-    catch(err) {
+    catch (err) {
       return res.status(500).json(err);
     }
   } else if (req.method !== 'POST') {
-    return res.status(405).json({message: "your method is not allowed"})
+    return res.status(405).json({ message: "your method is not allowed" })
   }
 }

@@ -29,6 +29,7 @@ export default function Home({ properties }) {
   const fileInputOnChangeHandler = e => setFile(e.target.files[0]);
   const textInputOnChangeHandler = e => setText(e.target.value);
 
+  // use effect will run only when a user has uploaded a new file.
   useEffect(() => {
     console.log('useEffect ran');
   }, [storedFiles])
@@ -38,7 +39,7 @@ export default function Home({ properties }) {
     e.preventDefault();
     console.log("submit", file, text);
 
-    // upload
+    // image uploading
     const formData = new FormData();
     formData.append('image', file);
     const res1 = await axios.post('/api/upload', formData, { 
@@ -47,13 +48,13 @@ export default function Home({ properties }) {
     const { filename } = await res1.data;
     setFileName(filename);
 
-    // save in db
+    // post saving into db
     const res2 = await axios.post('/api/savePosts', {
       filename: filename,
       title: text
     });
 
-    // refresh list
+    // list refreshing
     const res3 = await axios.get('/api/getList');
     setStoredFiles(res3.data);
   }
